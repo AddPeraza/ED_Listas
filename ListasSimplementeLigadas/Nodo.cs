@@ -10,6 +10,7 @@ namespace ListasSimplementeLigadas
     {
         public string Valor { get; set; }
         public Nodo Siguiente { get; set; }
+        public Nodo Anterior { get; internal set; }
 
         public Nodo(string valor = "", Nodo siguente = null)
         {

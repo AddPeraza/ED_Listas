@@ -66,30 +66,39 @@ namespace ListasSimplementeLigadas
                 return null;
             }
         }
-
-        internal class Nodo
+        public void AgregarCircular(string valor)
         {
-            public string Valor { get; set; }
-            public Nodo Siguiente { get; set; }
-            public Nodo Anterior { get; set; }
-
-            public Nodo(string valor)
+            nodoActual = nodoInicial;
+            while (nodoActual.Siguiente != null)
             {
-                Valor = valor;
-                Siguiente = null;
-                Anterior = null;
+                nodoActual = nodoActual.Siguiente;
             }
-
-            public Nodo()
-            {
-                Valor = null;
-                Siguiente = null;
-                Anterior = null;
-            }
+            Nodo nodoNuevo = new Nodo(valor);
+            nodoNuevo.Anterior = nodoActual;
+            nodoActual.Siguiente = nodoNuevo;
+            nodoInicial.Anterior = nodoNuevo; // Enlace circular
+            nodoNuevo.Siguiente = nodoInicial; // Enlace circular
         }
 
+        // Recorre la lista circular y devuelve un string con los valores de los nodos en la lista
+        public string RecorrerCircular()
+        {
+            string datos = string.Empty;
+            nodoActual = nodoInicial;
+            do
+            {
+                nodoActual = nodoActual.Siguiente;
+                datos += nodoActual.Valor + "\n";
+            } while (nodoActual != nodoInicial);
+            return datos;
+
+
+        }
     }
 }
+
+
+
 
 
 
