@@ -6,87 +6,95 @@ using System.Threading.Tasks;
 
 namespace ListasSimplementeLigadas
 {
-    public class Lista : ListaBase
+    namespace ListasSimplementeLigadas
     {
-        Nodo nodoInicial;
-        Nodo nodoActual;
-        public Lista()
+        internal class Lista
         {
-            nodoInicial = null;
-        }
-        public bool ValidaVacio()
-        {
-            if (nodoInicial.Siguiente == null)
+            Nodo nodoInicial;
+            Nodo nodoActual;
+            public Lista()
             {
-                return true;
+                nodoInicial = new Nodo();
             }
-            return false;
-            //return nodoInicial.Siguiente == null;
-
-        }
-        public void VaciarLista()
-        {
-            nodoInicial.Siguiente = null;
-        }
-        public string Recorrer()
-        {
-            string datos = string.Empty;
-            nodoActual = nodoInicial;
-            while (nodoActual.Siguiente != null)
+            public bool ValidaVacio()
             {
-                nodoActual = nodoActual.Siguiente;
-                datos += nodoActual.Valor + "\n";
+                if (nodoInicial.Siguiente == null)
+                {
+                    return true;
+                }
+                return false;
+                //return nodoInicial.Siguiente == null;
+
             }
-            return datos;
-        }
-        public void Agregar(string valor)
-        {
-            nodoActual = nodoInicial;
-            while (nodoActual.Siguiente != null)
+            public void VaciarLista()
             {
-                nodoActual = nodoActual.Siguiente;
+                nodoInicial.Siguiente = null;
             }
-            Nodo nodoNuevo = new Nodo(valor);
-            nodoActual.Siguiente = nodoNuevo;
-        }
-
-        public void AgregarCircular(string valor)
-        {
-            nodoActual = nodoInicial;
-            while (nodoActual.Siguiente != null)
+            public string Recorrer()
             {
-                
+                string datos = string.Empty;
+                nodoActual = nodoInicial;
+                while (nodoActual.Siguiente != null)
+                {
+                    nodoActual = nodoActual.Siguiente;
+                    datos += nodoActual.Valor + "\n";
+                }
+                return datos;
             }
-
+            public void Agregar(string valor)
             {
-                nodoActual = nodoActual.Siguiente;
+                nodoActual = nodoInicial;
+                while (nodoActual.Siguiente != null)
+                {
+                    nodoActual = nodoActual.Siguiente;
+                }
+                Nodo nodoNuevo = new Nodo(valor);
+                nodoActual.Siguiente = nodoNuevo;
             }
-            Nodo nodoNuevo = new Nodo(valor);
-            nodoNuevo.Anterior = nodoActual;
-            nodoActual.Siguiente = nodoNuevo;
-            nodoInicial.Anterior = nodoNuevo; // Enlace circular
-            nodoNuevo.Siguiente = nodoInicial; // Enlace circular
-        }
-
-        // Recorre la lista circular y devuelve un string con los valores de los nodos en la lista
-        public string RecorrerCircular()
-        {
-            string datos = string.Empty;
-            nodoActual = nodoInicial;
-            do
+            public void AgregarCircular(string valor)
             {
-                nodoActual = nodoActual.Siguiente;
-                datos += nodoActual.Valor + "\n";
-            } while (nodoActual != nodoInicial);
-            return datos;
+                nodoActual = nodoInicial;
+                while (nodoActual.Siguiente != null)
+                {
+                    nodoActual = nodoActual.Siguiente;
+                }
+                Nodo nodoNuevo = new Nodo(valor);
+                nodoNuevo.Siguiente = nodoInicial; // Hacer que el nuevo nodo apunte al nodo inicial
+                nodoActual.Siguiente = nodoNuevo;
+            }
+            public Nodo Buscar(string valor)
+            {
+                if (ValidaVacio())
+                {
+                    return null;
+                }
+                nodoActual = nodoInicial;
+                while (nodoActual.Siguiente != null)
+                {
+                    nodoActual = nodoActual.Siguiente;
+                    if (nodoActual.Valor == valor)
+                    {
+                        return nodoActual;
+                    }
+                    return null;
+                }
 
-
+            }
         }
     }
-
-    public class ListaBase
+    public void AgregarAlInicio(string valor)
     {
+        Nodo nodoNuevo = new Nodo(valor);
+        nodoNuevo.Siguiente = nodoInicial.Siguiente;
+        if (nodoInicial.Siguiente != null)
+        {
+            nodoInicial.Siguiente.Anterior = nodoNuevo;
+        }
+        nodoInicial.Siguiente = nodoNuevo;
+        nodoNuevo.Anterior = nodoInicial;
     }
+}
+
 }
 
 
