@@ -11,6 +11,17 @@ namespace ListasSimplementeLigadas
         static void Main(string[] args)
         {
             Nodo nodo = new Nodo();
+            Lista lista = new Lista();
+            lista.AgregarCircular("A");
+            lista.AgregarCircular("B");
+            lista.AgregarCircular("C");
+            Console.WriteLine("Recorrido de la lista circular:");
+            Console.WriteLine(lista.RecorrerCircular());
         }
+
     }
-}
+
+
+
+    }
+

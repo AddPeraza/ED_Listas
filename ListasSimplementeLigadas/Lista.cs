@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ListasSimplementeLigadas
 {
-    internal class Lista
+    public class Lista : ListaBase
     {
         Nodo nodoInicial;
         Nodo nodoActual;
         public Lista()
         {
-            nodoInicial = new Nodo();
+            nodoInicial = null;
         }
         public bool ValidaVacio()
         {
@@ -49,27 +49,15 @@ namespace ListasSimplementeLigadas
             Nodo nodoNuevo = new Nodo(valor);
             nodoActual.Siguiente = nodoNuevo;
         }
-        public Nodo Buscar(string valor)
-        {
-            if (ValidaVacio())
-            {
-                return null;
-            }
-            nodoActual = nodoInicial;
-            while (nodoActual.Siguiente != null)
-            {
-                nodoActual = nodoActual.Siguiente;
-                if (nodoActual.Valor == valor)
-                {
-                    return nodoActual;
-                }
-                return null;
-            }
-        }
+
         public void AgregarCircular(string valor)
         {
             nodoActual = nodoInicial;
             while (nodoActual.Siguiente != null)
+            {
+                
+            }
+
             {
                 nodoActual = nodoActual.Siguiente;
             }
@@ -94,6 +82,10 @@ namespace ListasSimplementeLigadas
 
 
         }
+    }
+
+    public class ListaBase
+    {
     }
 }
 
